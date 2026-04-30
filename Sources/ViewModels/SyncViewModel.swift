@@ -17,9 +17,11 @@ class SyncViewModel: ObservableObject {
     @Published var syncInsulin: Bool = true
     @Published var syncGlucose: Bool = true
     @Published var backgroundSyncInterval: Int = 15
+    @Published var lookbackDays: Int = 30
     @Published var syncLogs: [SyncLog] = []
     
     private let settings = UserSettings.shared
+    var appDelegate: AppDelegate?
     
     init() {
         Task {
@@ -36,6 +38,7 @@ class SyncViewModel: ObservableObject {
         syncInsulin = await settings.syncInsulin
         syncGlucose = await settings.syncGlucose
         backgroundSyncInterval = await settings.backgroundSyncInterval
+        lookbackDays = await settings.lookbackDays
         lastSyncDate = await settings.lastSyncDate
         syncLogs = await settings.syncLogs.reversed()
         isConfigured = nightscoutURL.isEmpty == false && nightscoutSecret.isEmpty == false
@@ -50,7 +53,9 @@ class SyncViewModel: ObservableObject {
         await settings.setSyncInsulin(syncInsulin)
         await settings.setSyncGlucose(syncGlucose)
         await settings.setBackgroundSyncInterval(backgroundSyncInterval)
+        await settings.setLookbackDays(lookbackDays)
         isConfigured = nightscoutURL.isEmpty == false && nightscoutSecret.isEmpty == false
+        await appDelegate?.scheduleBackgroundRefresh()
     }
     
     func syncNow() async {

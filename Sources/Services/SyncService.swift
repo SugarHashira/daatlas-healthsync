@@ -28,6 +28,10 @@ struct SyncResult {
     var glucoseSynced: Int = 0
     var insulinSynced: Int = 0
     var carbsSynced: Int = 0
+    // Items found on Nightscout not yet in HealthKit at time of this sync
+    var pendingGlucose: Int = 0
+    var pendingInsulin: Int = 0
+    var pendingCarbs: Int = 0
     var errors: [String] = []
 }
 
@@ -48,7 +52,10 @@ actor SyncService {
 
         var result = SyncResult()
 
-        let lastSync = await settings.lastSyncDate ?? Date.distantPast
+        let lookbackDays = await settings.lookbackDays
+        let since = Calendar.current.date(byAdding: .day, value: -lookbackDays, to: Date()) ?? Date.distantPast
+        let now = Date()
+
         let doCarbs = await settings.syncCarbs
         let doInsulin = await settings.syncInsulin
         let doGlucose = await settings.syncGlucose
@@ -57,49 +64,55 @@ actor SyncService {
             let nightscout = try await NightscoutService.shared
 
             if doCarbs || doInsulin {
-                let treatments = try await nightscout.fetchTreatments(since: lastSync)
+                // Fetch existing HealthKit samples for the lookback window
+                let existingCarbDates = doCarbs ? await healthKit.existingCarbsDates(from: since, to: now) : []
+                let existingInsulinDates = doInsulin ? await healthKit.existingInsulinDates(from: since, to: now) : []
+
+                let treatments = try await nightscout.fetchTreatments(since: since)
                 result.treatmentsProcessed = treatments.count
 
                 for treatment in treatments {
-                    guard let id = treatment.id else { continue }
-                    let alreadySynced = await settings.isTreatmentSynced(id)
-                    guard !alreadySynced else { continue }
+                    guard let date = treatment.treatmentDate else { continue }
 
-                    if doCarbs, let carbs = treatment.carbs, carbs > 0, let date = treatment.treatmentDate {
-                        do {
-                            try await healthKit.saveCarbohydrates(grams: carbs, date: date)
-                            result.carbsSynced += 1
-                            result.treatmentsSynced += 1
-                        } catch {
-                            result.errors.append("Failed to save carbs: \(error.localizedDescription)")
+                    if doCarbs, let carbs = treatment.carbs, carbs > 0 {
+                        result.pendingCarbs += 1
+                        if !healthKit.isDateAlreadySynced(date, in: existingCarbDates) {
+                            do {
+                                try await healthKit.saveCarbohydrates(grams: carbs, date: date)
+                                result.carbsSynced += 1
+                                result.treatmentsSynced += 1
+                            } catch {
+                                result.errors.append("Failed to save carbs: \(error.localizedDescription)")
+                            }
                         }
                     }
 
-                    if doInsulin, let insulin = treatment.insulin, insulin > 0, let date = treatment.treatmentDate {
-                        let isBasal = treatment.eventType?.lowercased().contains("basal") ?? false
-                        do {
-                            try await healthKit.saveInsulin(units: insulin, date: date, isBasal: isBasal)
-                            result.insulinSynced += 1
-                            result.treatmentsSynced += 1
-                        } catch {
-                            result.errors.append("Failed to save insulin: \(error.localizedDescription)")
+                    if doInsulin, let insulin = treatment.insulin, insulin > 0 {
+                        result.pendingInsulin += 1
+                        if !healthKit.isDateAlreadySynced(date, in: existingInsulinDates) {
+                            let isBasal = treatment.eventType?.lowercased().contains("basal") ?? false
+                            do {
+                                try await healthKit.saveInsulin(units: insulin, date: date, isBasal: isBasal)
+                                result.insulinSynced += 1
+                                result.treatmentsSynced += 1
+                            } catch {
+                                result.errors.append("Failed to save insulin: \(error.localizedDescription)")
+                            }
                         }
                     }
-
-                    await settings.addSyncedTreatmentID(id)
                 }
             }
 
             if doGlucose {
-                let glucoseEntries = try await nightscout.fetchGlucoseEntries(since: lastSync)
+                let existingGlucoseDates = await healthKit.existingGlucoseDates(from: since, to: now)
+                let glucoseEntries = try await nightscout.fetchGlucoseEntries(since: since)
                 result.glucoseProcessed = glucoseEntries.count
 
                 let unit = await settings.glucoseUnit
 
                 for entry in glucoseEntries {
-                    guard let id = entry.id else { continue }
-                    let alreadySynced = await settings.isGlucoseSynced(id)
-                    guard !alreadySynced else { continue }
+                    result.pendingGlucose += 1
+                    if healthKit.isDateAlreadySynced(entry.timestamp, in: existingGlucoseDates) { continue }
 
                     let value: Double
                     let hkUnit: HKUnit
@@ -119,27 +132,28 @@ actor SyncService {
                     } catch {
                         result.errors.append("Failed to save glucose: \(error.localizedDescription)")
                     }
-
-                    await settings.addSyncedGlucoseID(id)
                 }
             }
 
-            await settings.setLastSyncDate(Date())
+            await settings.setLastSyncDate(now)
             let log = SyncLog(
-                date: Date(),
+                date: now,
+                pendingGlucose: result.pendingGlucose,
+                pendingInsulin: result.pendingInsulin,
+                pendingCarbs: result.pendingCarbs,
                 glucoseSynced: result.glucoseSynced,
                 insulinSynced: result.insulinSynced,
                 carbsSynced: result.carbsSynced,
                 errors: result.errors
             )
             await settings.appendSyncLog(log)
-            
+
         } catch let error as NightscoutError {
             throw SyncError.nightscoutError(error)
         } catch let error as HealthKitError {
             throw SyncError.healthKitError(error)
         }
-        
+
         return result
     }
     

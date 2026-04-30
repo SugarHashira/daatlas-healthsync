@@ -17,6 +17,7 @@
 		CED5249AA5686A6E8ECBEDA9 /* NightscoutHealthSyncApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F60B0EFC19D9EBC29E9463C /* NightscoutHealthSyncApp.swift */; };
 		DCC6E747CAF206047944CF7B /* UserSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = B322BFB314FBBD8949C9EB71 /* UserSettings.swift */; };
 		8BB0B8B50F86483C81F552DF /* SyncLog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61F17FB94CCF429DBC2755B6 /* SyncLog.swift */; };
+		BBCCDD1122334455AABBCCDD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CCDD1122334455AABBCCDDEE /* Assets.xcassets */; };
 		E67A18DBEA873662E77E8D9D /* GlucoseEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA6CFB1EBBAD35978B578BC1 /* GlucoseEntry.swift */; };
 		E92163918EAA4FC91A6C5B68 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A802251A99039903EE10439 /* ContentView.swift */; };
 /* End PBXBuildFile section */
@@ -34,6 +35,7 @@
 		9A802251A99039903EE10439 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		B322BFB314FBBD8949C9EB71 /* UserSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSettings.swift; sourceTree = "<group>"; };
 		61F17FB94CCF429DBC2755B6 /* SyncLog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SyncLog.swift; sourceTree = "<group>"; };
+		CCDD1122334455AABBCCDDEE /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Resources/Assets.xcassets"; sourceTree = "<group>"; };
 		FA6CFB1EBBAD35978B578BC1 /* GlucoseEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlucoseEntry.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -67,6 +69,7 @@
 		5CA5DEFF60AF551DA5A09460 = {
 			isa = PBXGroup;
 			children = (
+				CCDD1122334455AABBCCDDEE /* Assets.xcassets */,
 				DFB8EDDE8033BA1FEE9CA24B /* Sources */,
 				4D16F5624FE9B1A060DD9FE9 /* Products */,
 			);
@@ -121,6 +124,7 @@
 			buildConfigurationList = B93381271B961651CA2A9F19 /* Build configuration list for PBXNativeTarget "NightscoutHealthSync" */;
 			buildPhases = (
 				310A2B6C2A614FECBD8AFB4D /* Sources */,
+				AA11223344556677AABBCCDD /* Resources */,
 			);
 			buildRules = (
 			);
@@ -182,6 +186,17 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXResourcesBuildPhase section */
+		AA11223344556677AABBCCDD /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BBCCDD1122334455AABBCCDD /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
 
 /* Begin XCBuildConfiguration section */
 		4125515A3F49D246CA98B425 /* Debug */ = {

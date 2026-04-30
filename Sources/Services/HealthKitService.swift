@@ -131,6 +131,55 @@ actor HealthKitService {
         }
     }
     
+    // Round a date to the nearest minute for fuzzy matching
+    private func roundToMinute(_ date: Date) -> TimeInterval {
+        return (date.timeIntervalSince1970 / 60).rounded() * 60
+    }
+
+    private func fetchExistingSampleDates(type: HKQuantityType, from start: Date, to end: Date) async -> Set<TimeInterval> {
+        let predicate = HKQuery.predicateForSamples(withStart: start, end: end, options: .strictStartDate)
+        do {
+            let samples = try await withCheckedThrowingContinuation { (continuation: CheckedContinuation<[HKSample], Error>) in
+                let query = HKSampleQuery(
+                    sampleType: type,
+                    predicate: predicate,
+                    limit: HKObjectQueryNoLimit,
+                    sortDescriptors: nil
+                ) { _, samples, error in
+                    if let error = error {
+                        continuation.resume(throwing: error)
+                    } else {
+                        continuation.resume(returning: samples ?? [])
+                    }
+                }
+                healthStore.execute(query)
+            }
+            return Set(samples.map { roundToMinute($0.startDate) })
+        } catch {
+            return []
+        }
+    }
+
+    func existingGlucoseDates(from start: Date, to end: Date) async -> Set<TimeInterval> {
+        guard let type = HKQuantityType.quantityType(forIdentifier: .bloodGlucose) else { return [] }
+        return await fetchExistingSampleDates(type: type, from: start, to: end)
+    }
+
+    func existingInsulinDates(from start: Date, to end: Date) async -> Set<TimeInterval> {
+        guard let type = HKQuantityType.quantityType(forIdentifier: .insulinDelivery) else { return [] }
+        return await fetchExistingSampleDates(type: type, from: start, to: end)
+    }
+
+    func existingCarbsDates(from start: Date, to end: Date) async -> Set<TimeInterval> {
+        guard let type = HKQuantityType.quantityType(forIdentifier: .dietaryCarbohydrates) else { return [] }
+        return await fetchExistingSampleDates(type: type, from: start, to: end)
+    }
+
+    nonisolated func isDateAlreadySynced(_ date: Date, in existingDates: Set<TimeInterval>) -> Bool {
+        let rounded = (date.timeIntervalSince1970 / 60).rounded() * 60
+        return existingDates.contains(rounded)
+    }
+
     func fetchLastSyncDate() async -> Date? {
         guard let type = HKQuantityType.quantityType(forIdentifier: .insulinDelivery) else {
             return nil

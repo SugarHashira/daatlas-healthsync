@@ -149,6 +149,16 @@ struct SettingsView: View {
                 Toggle("Sync Glucose Readings", isOn: $viewModel.syncGlucose)
                 Toggle("Sync Insulin", isOn: $viewModel.syncInsulin)
                 Toggle("Sync Carbs", isOn: $viewModel.syncCarbs)
+
+                Picker("Look back", selection: $viewModel.lookbackDays) {
+                    Text("7 days").tag(7)
+                    Text("14 days").tag(14)
+                    Text("30 days").tag(30)
+                    Text("60 days").tag(60)
+                    Text("90 days").tag(90)
+                    Text("180 days").tag(180)
+                    Text("1 year").tag(365)
+                }
             }
 
             Section("Background Sync") {
@@ -200,6 +210,33 @@ struct SettingsView: View {
     }
 }
 
+struct SyncDiffRow: View {
+    let label: String
+    let systemImage: String
+    let color: Color
+    let pending: Int
+    let synced: Int
+
+    var body: some View {
+        HStack(spacing: 6) {
+            Image(systemName: systemImage)
+                .foregroundStyle(color)
+                .frame(width: 16)
+            Text(label)
+                .foregroundStyle(.secondary)
+            Spacer()
+            if pending == 0 {
+                Text("Up to date")
+                    .foregroundStyle(.green)
+            } else {
+                Text("\(synced)/\(pending) synced")
+                    .foregroundStyle(synced == pending ? .green : .orange)
+            }
+        }
+        .font(.caption)
+    }
+}
+
 struct LogsView: View {
     @EnvironmentObject var viewModel: SyncViewModel
 
@@ -222,7 +259,7 @@ struct LogsView: View {
                 .padding()
             } else {
                 List(viewModel.syncLogs) { log in
-                    VStack(alignment: .leading, spacing: 6) {
+                    VStack(alignment: .leading, spacing: 8) {
                         HStack {
                             Text(log.date, style: .date)
                                 .font(.subheadline)
@@ -233,15 +270,29 @@ struct LogsView: View {
                                 .foregroundStyle(.secondary)
                         }
 
-                        HStack(spacing: 16) {
-                            Label("\(log.glucoseSynced) glucose", systemImage: "drop.fill")
-                                .foregroundStyle(.red)
-                            Label("\(log.insulinSynced) insulin", systemImage: "syringe.fill")
-                                .foregroundStyle(.blue)
-                            Label("\(log.carbsSynced) carbs", systemImage: "fork.knife")
-                                .foregroundStyle(.orange)
+                        VStack(alignment: .leading, spacing: 4) {
+                            SyncDiffRow(
+                                label: "Glucose",
+                                systemImage: "drop.fill",
+                                color: .red,
+                                pending: log.pendingGlucose,
+                                synced: log.glucoseSynced
+                            )
+                            SyncDiffRow(
+                                label: "Insulin",
+                                systemImage: "syringe.fill",
+                                color: .blue,
+                                pending: log.pendingInsulin,
+                                synced: log.insulinSynced
+                            )
+                            SyncDiffRow(
+                                label: "Carbs",
+                                systemImage: "fork.knife",
+                                color: .orange,
+                                pending: log.pendingCarbs,
+                                synced: log.carbsSynced
+                            )
                         }
-                        .font(.caption)
 
                         if log.hasErrors {
                             ForEach(log.errors, id: \.self) { error in

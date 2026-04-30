@@ -17,6 +17,7 @@ actor UserSettings {
         static let syncInsulin = "syncInsulin"
         static let syncGlucose = "syncGlucose"
         static let backgroundSyncInterval = "backgroundSyncInterval"
+        static let lookbackDays = "lookbackDays"
         static let syncLogs = "syncLogs"
     }
     
@@ -75,6 +76,12 @@ actor UserSettings {
         set { defaults.set(newValue, forKey: Keys.syncGlucose) }
     }
 
+    /// How many days back to fetch from Nightscout and compare against HealthKit
+    var lookbackDays: Int {
+        get { defaults.object(forKey: Keys.lookbackDays) as? Int ?? 30 }
+        set { defaults.set(newValue, forKey: Keys.lookbackDays) }
+    }
+
     /// How often to sync in minutes (e.g. 15, 30, 60)
     var backgroundSyncInterval: Int {
         get { defaults.object(forKey: Keys.backgroundSyncInterval) as? Int ?? 15 }
@@ -121,6 +128,7 @@ actor UserSettings {
     func setSyncInsulin(_ value: Bool) { syncInsulin = value }
     func setSyncGlucose(_ value: Bool) { syncGlucose = value }
     func setBackgroundSyncInterval(_ minutes: Int) { backgroundSyncInterval = minutes }
+    func setLookbackDays(_ days: Int) { lookbackDays = days }
 
     func setLastSyncDate(_ date: Date?) {
         lastSyncDate = date
