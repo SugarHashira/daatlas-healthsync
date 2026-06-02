@@ -79,7 +79,7 @@ struct ContentView: View {
                     }
                 }
             }
-            .navigationTitle("Nightscout Sync")
+            .navigationTitle("DaAtlas")
         }
         .task {
             await viewModel.loadSettings()

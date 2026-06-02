@@ -1,0 +1,383 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 77;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		2EF8F0B360947B368110518B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A7761A19640576C95B9734E /* AppDelegate.swift */; };
+		534DF8F6036EB9BF4AA0DE60 /* DaatlasHealthSyncApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92A528D59853C2E6B753A1BC /* DaatlasHealthSyncApp.swift */; };
+		6904B9025CBEE4FED7056369 /* GlucoseEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15B57D3DB011DA825B8E75F3 /* GlucoseEntry.swift */; };
+		97D808F18C696A44598EF781 /* NightscoutTreatment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68EBB8E9AB750BFA73CFF62B /* NightscoutTreatment.swift */; };
+		A00C0657B706A521B728B923 /* SyncLog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EC98DBFBAF150980C99E0FE /* SyncLog.swift */; };
+		A99995DB8626D73DDB7DA2D8 /* NightscoutProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2B9CFCB5F10620A8DD66EE1 /* NightscoutProfile.swift */; };
+		BBC4D24918AAFD405F9A2065 /* HealthKitService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A7FBC985F5E5E11485BD7E7 /* HealthKitService.swift */; };
+		D4D64D7A0E91771CBE78CB28 /* UserSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBAE69988D9684602CEB034E /* UserSettings.swift */; };
+		DD2C20A76E0E73264EC3D233 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFBF6D4AAB72FAE668974430 /* ContentView.swift */; };
+		EC868C15D5C1E929685B2378 /* SyncViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53F48113A08F8EDB0D52A2E8 /* SyncViewModel.swift */; };
+		ECDF6C2332E42ED4AC8C2341 /* NightscoutService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 880CD14EC687FFB83D05B165 /* NightscoutService.swift */; };
+		ED32CB511B41F37EA60E7782 /* SyncService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3402A67BDE1C3C0366541784 /* SyncService.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		0A7FBC985F5E5E11485BD7E7 /* HealthKitService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthKitService.swift; sourceTree = "<group>"; };
+		15B57D3DB011DA825B8E75F3 /* GlucoseEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlucoseEntry.swift; sourceTree = "<group>"; };
+		2A7761A19640576C95B9734E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		2EC98DBFBAF150980C99E0FE /* SyncLog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SyncLog.swift; sourceTree = "<group>"; };
+		3402A67BDE1C3C0366541784 /* SyncService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SyncService.swift; sourceTree = "<group>"; };
+		53F48113A08F8EDB0D52A2E8 /* SyncViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SyncViewModel.swift; sourceTree = "<group>"; };
+		68EBB8E9AB750BFA73CFF62B /* NightscoutTreatment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NightscoutTreatment.swift; sourceTree = "<group>"; };
+		880CD14EC687FFB83D05B165 /* NightscoutService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NightscoutService.swift; sourceTree = "<group>"; };
+		92A528D59853C2E6B753A1BC /* DaatlasHealthSyncApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DaatlasHealthSyncApp.swift; sourceTree = "<group>"; };
+		C2B9CFCB5F10620A8DD66EE1 /* NightscoutProfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NightscoutProfile.swift; sourceTree = "<group>"; };
+		CFBF6D4AAB72FAE668974430 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		D463ED27966831FAA094CE0E /* DaatlasHealthSync.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = DaatlasHealthSync.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		EBAE69988D9684602CEB034E /* UserSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSettings.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXGroup section */
+		4E75D6E7E316B87C02CCB0CA /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				D463ED27966831FAA094CE0E /* DaatlasHealthSync.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		A3A4F6C748D6014F0DED72E8 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				15B57D3DB011DA825B8E75F3 /* GlucoseEntry.swift */,
+				C2B9CFCB5F10620A8DD66EE1 /* NightscoutProfile.swift */,
+				68EBB8E9AB750BFA73CFF62B /* NightscoutTreatment.swift */,
+				2EC98DBFBAF150980C99E0FE /* SyncLog.swift */,
+				EBAE69988D9684602CEB034E /* UserSettings.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		AC302590394A020AC32EA4B3 /* App */ = {
+			isa = PBXGroup;
+			children = (
+				2A7761A19640576C95B9734E /* AppDelegate.swift */,
+				92A528D59853C2E6B753A1BC /* DaatlasHealthSyncApp.swift */,
+			);
+			path = App;
+			sourceTree = "<group>";
+		};
+		B3D9896C84C1AADAF6AF28BE = {
+			isa = PBXGroup;
+			children = (
+				C2F49C3C0F928E0EAE6B7079 /* Sources */,
+				4E75D6E7E316B87C02CCB0CA /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		C2F49C3C0F928E0EAE6B7079 /* Sources */ = {
+			isa = PBXGroup;
+			children = (
+				AC302590394A020AC32EA4B3 /* App */,
+				A3A4F6C748D6014F0DED72E8 /* Models */,
+				FE14D6AA1D097A2AE1088DD2 /* Services */,
+				FC39EE9B8D3E5045AD6546CE /* ViewModels */,
+				E8E3F97E44A2314954BB0406 /* Views */,
+			);
+			path = Sources;
+			sourceTree = "<group>";
+		};
+		E8E3F97E44A2314954BB0406 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				CFBF6D4AAB72FAE668974430 /* ContentView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		FC39EE9B8D3E5045AD6546CE /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				53F48113A08F8EDB0D52A2E8 /* SyncViewModel.swift */,
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		FE14D6AA1D097A2AE1088DD2 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				0A7FBC985F5E5E11485BD7E7 /* HealthKitService.swift */,
+				880CD14EC687FFB83D05B165 /* NightscoutService.swift */,
+				3402A67BDE1C3C0366541784 /* SyncService.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		1089E37553395BEC16C560A1 /* DaatlasHealthSync */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 47E41CFC4229984997912ECE /* Build configuration list for PBXNativeTarget "DaatlasHealthSync" */;
+			buildPhases = (
+				3AF0E350C057996906D002C4 /* Sources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = DaatlasHealthSync;
+			packageProductDependencies = (
+			);
+			productName = DaatlasHealthSync;
+			productReference = D463ED27966831FAA094CE0E /* DaatlasHealthSync.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		A95BF466C1EF3EF5C8503A4A /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = YES;
+				LastUpgradeCheck = 1500;
+				TargetAttributes = {
+					1089E37553395BEC16C560A1 = {
+						DevelopmentTeam = "";
+					};
+				};
+			};
+			buildConfigurationList = 880B2E3C899174C6AE315B76 /* Build configuration list for PBXProject "DaatlasHealthSync" */;
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				Base,
+				en,
+			);
+			mainGroup = B3D9896C84C1AADAF6AF28BE;
+			minimizedProjectReferenceProxies = 1;
+			preferredProjectObjectVersion = 77;
+			productRefGroup = 4E75D6E7E316B87C02CCB0CA /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				1089E37553395BEC16C560A1 /* DaatlasHealthSync */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		3AF0E350C057996906D002C4 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2EF8F0B360947B368110518B /* AppDelegate.swift in Sources */,
+				DD2C20A76E0E73264EC3D233 /* ContentView.swift in Sources */,
+				534DF8F6036EB9BF4AA0DE60 /* DaatlasHealthSyncApp.swift in Sources */,
+				6904B9025CBEE4FED7056369 /* GlucoseEntry.swift in Sources */,
+				BBC4D24918AAFD405F9A2065 /* HealthKitService.swift in Sources */,
+				A99995DB8626D73DDB7DA2D8 /* NightscoutProfile.swift in Sources */,
+				ECDF6C2332E42ED4AC8C2341 /* NightscoutService.swift in Sources */,
+				97D808F18C696A44598EF781 /* NightscoutTreatment.swift in Sources */,
+				A00C0657B706A521B728B923 /* SyncLog.swift in Sources */,
+				ED32CB511B41F37EA60E7782 /* SyncService.swift in Sources */,
+				EC868C15D5C1E929685B2378 /* SyncViewModel.swift in Sources */,
+				D4D64D7A0E91771CBE78CB28 /* UserSettings.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		09641BCC9E44F1D9AC882DEA /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = Resources/DaatlasHealthSync.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				ENABLE_PREVIEWS = YES;
+				INFOPLIST_FILE = Resources/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.diyDiabetes.daatlas-healthsync";
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		6907A3E0E740CAD261074916 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGNING_ALLOWED = NO;
+				CODE_SIGNING_REQUIRED = NO;
+				CODE_SIGN_IDENTITY = "";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = "";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 5.9;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		6AE6ADD3C37E232EBE1FAD07 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = Resources/DaatlasHealthSync.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				ENABLE_PREVIEWS = YES;
+				INFOPLIST_FILE = Resources/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.diyDiabetes.daatlas-healthsync";
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		DE469348A905474D50C1863D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGNING_ALLOWED = NO;
+				CODE_SIGNING_REQUIRED = NO;
+				CODE_SIGN_IDENTITY = "";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = "";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"DEBUG=1",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.9;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		47E41CFC4229984997912ECE /* Build configuration list for PBXNativeTarget "DaatlasHealthSync" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				09641BCC9E44F1D9AC882DEA /* Debug */,
+				6AE6ADD3C37E232EBE1FAD07 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		880B2E3C899174C6AE315B76 /* Build configuration list for PBXProject "DaatlasHealthSync" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DE469348A905474D50C1863D /* Debug */,
+				6907A3E0E740CAD261074916 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = A95BF466C1EF3EF5C8503A4A /* Project object */;
+}

@@ -15,10 +15,10 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "E47D9F7E36B6B35B02D6D5B1"
-               BuildableName = "NightscoutHealthSync.app"
-               BlueprintName = "NightscoutHealthSync"
-               ReferencedContainer = "container:NightscoutHealthSync.xcodeproj">
+               BlueprintIdentifier = "1089E37553395BEC16C560A1"
+               BuildableName = "DaatlasHealthSync.app"
+               BlueprintName = "DaatlasHealthSync"
+               ReferencedContainer = "container:DaatlasHealthSync.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -32,10 +32,10 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "E47D9F7E36B6B35B02D6D5B1"
-            BuildableName = "NightscoutHealthSync.app"
-            BlueprintName = "NightscoutHealthSync"
-            ReferencedContainer = "container:NightscoutHealthSync.xcodeproj">
+            BlueprintIdentifier = "1089E37553395BEC16C560A1"
+            BuildableName = "DaatlasHealthSync.app"
+            BlueprintName = "DaatlasHealthSync"
+            ReferencedContainer = "container:DaatlasHealthSync.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
       <Testables>
@@ -55,10 +55,10 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "E47D9F7E36B6B35B02D6D5B1"
-            BuildableName = "NightscoutHealthSync.app"
-            BlueprintName = "NightscoutHealthSync"
-            ReferencedContainer = "container:NightscoutHealthSync.xcodeproj">
+            BlueprintIdentifier = "1089E37553395BEC16C560A1"
+            BuildableName = "DaatlasHealthSync.app"
+            BlueprintName = "DaatlasHealthSync"
+            ReferencedContainer = "container:DaatlasHealthSync.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
       <CommandLineArguments>
@@ -74,10 +74,10 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "E47D9F7E36B6B35B02D6D5B1"
-            BuildableName = "NightscoutHealthSync.app"
-            BlueprintName = "NightscoutHealthSync"
-            ReferencedContainer = "container:NightscoutHealthSync.xcodeproj">
+            BlueprintIdentifier = "1089E37553395BEC16C560A1"
+            BuildableName = "DaatlasHealthSync.app"
+            BlueprintName = "DaatlasHealthSync"
+            ReferencedContainer = "container:DaatlasHealthSync.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
       <CommandLineArguments>

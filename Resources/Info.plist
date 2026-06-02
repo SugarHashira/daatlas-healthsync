@@ -4,12 +4,12 @@
 <dict>
 	<key>BGTaskSchedulerPermittedIdentifiers</key>
 	<array>
-		<string>com.diyDiabetes.nightscout-healthsync.refresh</string>
+		<string>com.diyDiabetes.daatlas-healthsync.refresh</string>
 	</array>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleDisplayName</key>
-	<string>Nightscout Sync</string>
+	<string>DaAtlas</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>

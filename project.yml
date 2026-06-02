@@ -1,4 +1,4 @@
-name: NightscoutHealthSync
+name: DaatlasHealthSync
 options:
   bundleIdPrefix: com.diyDiabetes
   deploymentTarget:
@@ -16,7 +16,7 @@ settings:
     CODE_SIGNING_ALLOWED: "NO"
 
 targets:
-  NightscoutHealthSync:
+  DaatlasHealthSync:
     type: application
     platform: iOS
     sources:
@@ -25,23 +25,23 @@ targets:
       - Resources
     settings:
       base:
-        PRODUCT_BUNDLE_IDENTIFIER: com.diyDiabetes.nightscout-healthsync
+        PRODUCT_BUNDLE_IDENTIFIER: com.diyDiabetes.daatlas-healthsync
         INFOPLIST_FILE: Resources/Info.plist
-        CODE_SIGN_ENTITLEMENTS: Resources/NightscoutHealthSync.entitlements
+        CODE_SIGN_ENTITLEMENTS: Resources/DaatlasHealthSync.entitlements
         ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
         ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME: AccentColor
         ENABLE_PREVIEWS: YES
     entitlements:
-      path: Resources/NightscoutHealthSync.entitlements
+      path: Resources/DaatlasHealthSync.entitlements
       properties:
         com.apple.developer.healthkit: true
         com.apple.developer.healthkit.access: []
 
 schemes:
-  NightscoutHealthSync:
+  DaatlasHealthSync:
     build:
       targets:
-        NightscoutHealthSync: all
+        DaatlasHealthSync: all
     run:
       config: Debug
     profile:

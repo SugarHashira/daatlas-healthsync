@@ -126,7 +126,7 @@ actor UserSettings {
 
     func setSyncCarbs(_ value: Bool) { syncCarbs = value }
     func setSyncInsulin(_ value: Bool) { syncInsulin = value }
-    func setSyncGlucose(_ value: Bool) { syncGlucose = value }
+    func setSyncGlucose(_ value: Bool) { syncGlucose = value }
     func setBackgroundSyncInterval(_ minutes: Int) { backgroundSyncInterval = minutes }
     func setLookbackDays(_ days: Int) { lookbackDays = days }
 

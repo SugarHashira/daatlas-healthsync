@@ -2,7 +2,7 @@ import SwiftUI
 import BackgroundTasks
 
 @main
-struct NightscoutHealthSyncApp: App {
+struct DaatlasHealthSyncApp: App {
     @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
     @StateObject private var syncViewModel = SyncViewModel()
 

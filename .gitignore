@@ -25,3 +25,9 @@ Pods/
 
 # OS
 Thumbs.db
+
+# AI / Claude
+AGENTS.md
+.claude/
+.omc/
+.a5c/

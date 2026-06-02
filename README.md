@@ -1,14 +1,14 @@
-# NightscoutHealthSync
+# daatlas-healthsync
 
 **Sync your Nightscout diabetes data to Apple Health**
 
-An iOS app that bridges the gap between your Nightscout instance and Apple Health, bringing all your diabetes data (glucose, insulin, carbs) together with your other health metrics.
+A simple iOS app that bridges your Nightscout instance and Apple Health, syncing glucose, insulin, and carbs into one place.
 
-## The Ecosystem
+> **Looking for the full experience?** This is the lightweight standalone version. The complete **daatlas** project includes Oura Ring integration, dashboard views, trends analysis, and workout logging — check it out at [github.com/SugarHashira/daatlas](https://github.com/SugarHashira/daatlas).
 
-Before diving into setup, here's the full picture of how your diabetes data flows:
+---
 
-### Data Flow
+## Data Flow
 
 ```
 ┌─────────────────────────────────────────────────────────────────────────────┐
@@ -32,17 +32,16 @@ Before diving into setup, here's the full picture of how your diabetes data flow
 ┌─────────────────────────────────────────────────────────────────────────────┐
 │                           NIGHTSCOUT                                        │
 │    ┌─────────────────────────────────────────────────────────────────┐     │
-│    │  Pulls data from t:connect (via other projects listed below)    │     │
+│    │  Pulls data from t:connect                                      │     │
 │    │  Provides REST API for apps to consume                          │     │
 │    │  Web UI for glucose visualization                               │     │
-│    │  Pushover, IFTTT, and other integrations                        │     │
 │    └─────────────────────────────────────────────────────────────────┘     │
 │                              Hosted on: Fly.io                              │
 └─────────────────────────────────┬───────────────────────────────────────────┘
                                   │
                                   ▼
 ┌─────────────────────────────────────────────────────────────────────────────┐
-│                         NIGHTSCOUNTHEALTHSYNC                              │
+│                         DAATLAS-HEALTHSYNC                                  │
 │    ┌─────────────────────────────────────────────────────────────────┐     │
 │    │  Fetches treatments (insulin, carbs) from Nightscout           │     │
 │    │  Fetches glucose entries from Nightscout                       │     │
@@ -53,75 +52,23 @@ Before diving into setup, here's the full picture of how your diabetes data flow
                                   ▼
 ┌─────────────────────────────────────────────────────────────────────────────┐
 │                            APPLE HEALTH                                     │
-│     Now you can see all your data in one place and use other apps!         │
-│     Glucose + Insulin + Carbs + Sleep (Oura) + Activity + Heart Health     │
+│     Glucose + Insulin + Carbs unified with Sleep, Activity, Heart Health   │
 └─────────────────────────────────────────────────────────────────────────────┘
 ```
 
-## Related Projects
-
-Here's everything needed to get this working:
-
-### 1. Nightscout (nightscout.github.io)
-
-**What it does:** Open-source diabetes data visualization platform
-- Hosts your CGM data, insulin deliveries, and treatments
-- Provides a REST API for external apps
-- Web dashboard for viewing trends
-
-**Website:** https://nightscout.github.io/
-**GitHub:** https://github.com/nightscout/cgm-remote-monitor
-
-### 2. Getting t:slim X2 Data to Nightscout
-
-There are several approaches:
-
-#### Option A: Tidepool
-- Upload pump data to Tidepool, then Nightscout can pull from there
-- https://tidepool.org
-
-#### Option B: t:connect integration
-- Check the Nightscout documentation for "Tandem" or "t:connect" setup
-- Some users have created custom integrations for this
-
-#### Option C: xDrip+ (for CGM data)
-- If using Dexcom, xDrip+ can upload directly to Nightscout
-- https://github.com/NightscoutFoundation/xDrip
-
-### 3. Hosting
-
-#### Fly.io (Recommended - Used in this setup)
-- Fast, reliable, Docker-based hosting
-- Free tier available
-- Setup guide: https://nightscout.github.io/nightscout/fly/
-
-#### Heroku (Alternative)
-- Classic choice for Nightscout
-- Note: Free tier was discontinued in late 2022
-- Setup guide: https://nightscout.github.io/nightscout/heroku/
-
-### 4. Dexcom CGM Integration
-
-If you're using a Dexcom CGM:
-- **Dexcom Follow** - Share data with Nightscout
-- **xDrip+** - Open-source Android app that uploads to Nightscout
-- **Spike** - iOS app alternative (limited availability)
-
 ## Prerequisites
 
-Before using NightscoutHealthSync:
-
-1. ✅ **A Nightscout instance** deployed and accessible
-2. ✅ **Your t:slim X2 data** flowing into Nightscout
-3. ✅ **Nightscout REST API enabled** (setting: `API_SECRET`)
-4. ✅ **iOS 16+ device** (iPhone or iPad)
-5. ✅ **Apple Health** app installed
+1. ✅ A Nightscout instance deployed and accessible
+2. ✅ Your t:slim X2 data flowing into Nightscout
+3. ✅ Nightscout REST API enabled (`API_SECRET` env var set)
+4. ✅ iOS 16+ device
+5. ✅ Apple Health app installed
 
 ## Setup
 
 ### 1. Configure Nightscout API
 
-In your Nightscout settings (environment variables), ensure:
+In your Nightscout environment variables:
 
 ```
 API_SECRET=your_secret_here
@@ -131,13 +78,9 @@ ENABLE=api
 ### 2. Install the App
 
 ```bash
-# Clone the repository
-git clone https://github.com/yourusername/nightscout-healthsync.git
-
-# Open in Xcode
-open NightscoutHealthSync.xcodeproj
-
-# Build and run on your device
+git clone https://github.com/SugarHashira/daatlas-healthsync.git
+open DaatlasHealthSync.xcodeproj
+# Build and run on your device (Cmd+R)
 ```
 
 ### 3. Configure the App
@@ -146,25 +89,22 @@ open NightscoutHealthSync.xcodeproj
 2. Go to **Settings** (gear icon)
 3. Enter your **Nightscout URL** (e.g., `https://your-nightscout.fly.dev`)
 4. Enter your **API Secret**
-5. Tap **Test Connection** to verify
+5. Tap **Test Connection**
 6. Tap **Request HealthKit Authorization**
-7. Choose what to sync:
-   - Glucose Readings
-   - Insulin Deliveries
-   - Carbohydrates
+7. Choose what to sync: Glucose, Insulin, Carbs
 
-### 4. Start Syncing
+### 4. Sync
 
-- Tap **Sync Now** to manually trigger a sync
-- Enable **Auto-sync in background** for automatic periodic syncs
+- Tap **Sync Now** for a manual sync
+- Enable **Auto-sync** for automatic background syncs
 
 ## Features
 
-- **Selective Sync** - Choose which data types to sync
-- **Deduplication** - Won't sync the same data twice
-- **Background Sync** - Automatic syncing at intervals you choose (5 min to 2 hours)
-- **Sync Logs** - See exactly what was synced and when
-- **mg/dL or mmol/L** - Support for both glucose units
+- **Selective sync** — choose which data types to sync
+- **Deduplication** — won't write the same data twice
+- **Background sync** — configurable intervals (5 min to 2 hours)
+- **Sync logs** — audit trail of what was synced and when
+- **mg/dL and mmol/L** — both glucose units supported
 
 ## What Gets Synced
 
@@ -175,39 +115,26 @@ open NightscoutHealthSync.xcodeproj
 | Insulin (Basal) | Insulin Delivery (Basal) |
 | Carbs | Dietary Carbohydrates |
 
-## Troubleshooting
-
-### "Connection failed"
-- Verify your Nightscout URL is correct
-- Ensure your API secret matches exactly
-- Check that your Nightscout instance is running
-
-### "HealthKit authorization denied"
-- Go to iOS Settings > Privacy & Security > Health > NightscoutHealthSync
-- Allow access to Health data
-
-### Data not appearing in Apple Health
-- Check that you granted write permissions for each data type
-- Verify sync completed successfully (check Sync Logs)
-
-## Future Plans
-
-- Apple Watch app for quick sync status
-- Watch complications for glucose display
-- Correlate diabetes data with sleep/activity from Oura Ring
-- Home screen widgets
-
 ## Tech Stack
 
-- **SwiftUI** - Modern declarative UI
-- **HealthKit** - Apple Health integration
-- **Swift Concurrency** - async/await and actors
-- **iOS 16+** - Minimum deployment target
+- **SwiftUI** — declarative UI
+- **HealthKit** — Apple Health integration
+- **Swift Concurrency** — async/await and actors
+- **iOS 16+** — minimum deployment target
+- No third-party dependencies
+
+## Troubleshooting
+
+**"Connection failed"** — verify Nightscout URL and API secret match exactly, confirm instance is running.
+
+**"HealthKit authorization denied"** — go to iOS Settings > Privacy & Security > Health > DaAtlas and allow access.
+
+**Data not appearing in Apple Health** — confirm write permissions were granted for each data type and check Sync Logs.
 
 ## Disclaimer
 
-This app is for informational purposes. Always consult with your healthcare provider about diabetes management decisions. The developer is not responsible for any medical decisions made based on data from this app.
+For informational purposes only. Always consult your healthcare provider about diabetes management decisions.
 
 ## License
 
-MIT License - See LICENSE file for details
+MIT License — see LICENSE file for details.

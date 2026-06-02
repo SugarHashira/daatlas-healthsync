@@ -2,7 +2,7 @@ import UIKit
 import BackgroundTasks
 
 class AppDelegate: NSObject, UIApplicationDelegate {
-    static let backgroundTaskIdentifier = "com.diyDiabetes.nightscout-healthsync.refresh"
+    static let backgroundTaskIdentifier = "com.diyDiabetes.daatlas-healthsync.refresh"
 
     func application(
         _ application: UIApplication,
