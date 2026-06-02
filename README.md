@@ -134,7 +134,3 @@ open DaatlasHealthSync.xcodeproj
 ## Disclaimer
 
 For informational purposes only. Always consult your healthcare provider about diabetes management decisions.
-
-## License
-
-MIT License — see LICENSE file for details.
