@@ -134,3 +134,9 @@ open DaatlasHealthSync.xcodeproj
 ## Disclaimer
 
 For informational purposes only. Always consult your healthcare provider about diabetes management decisions.
+
+## License
+
+This project is licensed under the **GNU General Public License v3.0** — see the [LICENSE](LICENSE) file for details.
+
+In short: you can use, modify, and distribute this code freely, but any distributed modifications must also be open source under GPL v3.
