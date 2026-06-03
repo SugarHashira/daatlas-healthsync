@@ -1,142 +1,189 @@
+<p align="center">
+  <img src="https://raw.githubusercontent.com/SugarHashira/daatlas-healthsync/master/docs/icon.png" width="120" alt="daatlas-healthsync app icon" />
+</p>
+
 # daatlas-healthsync
 
-**Sync your Nightscout diabetes data to Apple Health**
+**Sync your Nightscout diabetes data to Apple Health.**
 
-A simple iOS app that bridges your Nightscout instance and Apple Health, syncing glucose, insulin, and carbs into one place.
+A lightweight iOS app that bridges Nightscout and Apple Health — syncing glucose, insulin, and carbs into one unified timeline. No backend, no account, no third-party dependencies.
 
-> **Looking for the full experience?** This is the lightweight standalone version. The complete **daatlas** project includes Oura Ring integration, dashboard views, trends analysis, and workout logging — check it out at [github.com/SugarHashira/daatlas](https://github.com/SugarHashira/daatlas).
+> **Looking for the full experience?** This is the focused standalone version. The complete **[daatlas](https://github.com/SugarHashira/daatlas)** project adds Oura Ring integration, Dexcom support, dashboard views, trends analysis, and more.
+
+> iOS 16+ · SwiftUI · HealthKit · Swift Concurrency
 
 ---
 
-## Data Flow
+## What it does
 
 ```
-┌─────────────────────────────────────────────────────────────────────────────┐
-│                           TANDEM t:slim X2                                  │
-│                         (Insulin Pump + Control-IQ)                         │
-└─────────────────────────────────┬───────────────────────────────────────────┘
-                                  │
-                                  ▼
-┌─────────────────────────────────────────────────────────────────────────────┐
-│                            TANDEM MOBILE APP                                │
-│                      (Remote bolusing & data upload)                        │
-└─────────────────────────────────┬───────────────────────────────────────────┘
-                                  │
-                                  ▼
-┌─────────────────────────────────────────────────────────────────────────────┐
-│                        t:connect WEB SERVICE                                │
-│                   (Tandem's cloud - yourdata.t:connect.com)                 │
-└─────────────────────────────────┬───────────────────────────────────────────┘
-                                  │
-                                  ▼
-┌─────────────────────────────────────────────────────────────────────────────┐
-│                           NIGHTSCOUT                                        │
-│    ┌─────────────────────────────────────────────────────────────────┐     │
-│    │  Pulls data from t:connect                                      │     │
-│    │  Provides REST API for apps to consume                          │     │
-│    │  Web UI for glucose visualization                               │     │
-│    └─────────────────────────────────────────────────────────────────┘     │
-│                              Hosted on: Fly.io                              │
-└─────────────────────────────────┬───────────────────────────────────────────┘
-                                  │
-                                  ▼
-┌─────────────────────────────────────────────────────────────────────────────┐
-│                         DAATLAS-HEALTHSYNC                                  │
-│    ┌─────────────────────────────────────────────────────────────────┐     │
-│    │  Fetches treatments (insulin, carbs) from Nightscout           │     │
-│    │  Fetches glucose entries from Nightscout                       │     │
-│    │  Syncs everything to Apple Health via HealthKit               │     │
-│    └─────────────────────────────────────────────────────────────────┘     │
-└─────────────────────────────────┬───────────────────────────────────────────┘
-                                  │
-                                  ▼
-┌─────────────────────────────────────────────────────────────────────────────┐
-│                            APPLE HEALTH                                     │
-│     Glucose + Insulin + Carbs unified with Sleep, Activity, Heart Health   │
-└─────────────────────────────────────────────────────────────────────────────┘
+Tandem t:slim X2
+      │
+      ▼
+t:connect  ──►  Nightscout  ──►  daatlas-healthsync  ──►  Apple Health
+                                                          (unified timeline)
 ```
 
-## Prerequisites
+Fetches glucose readings, insulin deliveries, and carb entries from your Nightscout instance and writes them to Apple Health — available to every app in the ecosystem.
 
-1. ✅ A Nightscout instance deployed and accessible
-2. ✅ Your t:slim X2 data flowing into Nightscout
-3. ✅ Nightscout REST API enabled (`API_SECRET` env var set)
-4. ✅ iOS 16+ device
-5. ✅ Apple Health app installed
+---
+
+## Features
+
+- **Glucose sync** — Blood glucose readings in mg/dL or mmol/L
+- **Insulin tracking** — Bolus and basal deliveries mapped to HealthKit insulin types
+- **Carb logging** — Dietary carbohydrate entries
+- **Deduplication** — Never writes the same record twice (timestamp fuzzy-matching)
+- **Background sync** — Configurable intervals (5 min – 2 hours) via `BGAppRefreshTask`
+- **Sync logs** — Complete audit trail of what synced and when (last 100 entries)
+- **Selective sync** — Enable or disable glucose, insulin, and carbs independently
+- **Configurable lookback** — Fetch 7 days to 1 year of historical data
+
+---
+
+## Tech stack
+
+| Layer | Technology |
+|-------|-----------|
+| UI | SwiftUI |
+| Health data | HealthKit |
+| Concurrency | Swift async/await · `actor` types throughout |
+| Background | BGAppRefreshTask |
+| Auth | SHA-1 via CryptoKit (Nightscout API secret) |
+| Networking | URLSession |
+| Persistence | UserDefaults |
+| Build | XcodeGen (`project.yml`) |
+| Dependencies | None |
+| Min target | iOS 16.0 |
+
+---
+
+## Architecture
+
+```
+SwiftUI Views (ContentView, SettingsView, LogsView)
+        │
+        ▼
+SyncViewModel (@MainActor)
+        │
+        ├── NightscoutService (actor)  ─► REST API client
+        ├── SyncService       (actor)  ─► orchestration + deduplication
+        └── HealthKitService  (actor)  ─► Apple Health read/write
+
+UserSettings (actor) ─► UserDefaults wrapper
+```
+
+All services are `actor` types — compile-time thread safety, no manual locking. `HealthKitService` is the single write path to Apple Health.
+
+---
+
+## Build
+
+Requires Xcode 15+ and a device or simulator running iOS 16+.
+
+```bash
+git clone https://github.com/SugarHashira/daatlas-healthsync.git
+cd daatlas-healthsync
+
+# (Optional) regenerate Xcode project from project.yml
+brew install xcodegen
+xcodegen generate
+
+open DaatlasHealthSync.xcodeproj
+# Cmd+B to build · Cmd+R to run
+```
+
+---
 
 ## Setup
 
-### 1. Configure Nightscout API
+### Nightscout
 
-In your Nightscout environment variables:
+Ensure your Nightscout instance has REST API enabled:
 
 ```
 API_SECRET=your_secret_here
 ENABLE=api
 ```
 
-### 2. Install the App
+### App configuration
 
-```bash
-git clone https://github.com/SugarHashira/daatlas-healthsync.git
-open DaatlasHealthSync.xcodeproj
-# Build and run on your device (Cmd+R)
+1. Open the app → tap the gear icon → **Settings**
+2. Enter your **Nightscout URL** (e.g. `https://your-nightscout.fly.dev`)
+3. Enter your **API Secret**
+4. Tap **Test Connection**
+5. Tap **Request HealthKit Authorization**
+6. Enable the data types you want synced
+7. Tap **Sync Now** for a manual sync, or enable **Auto-sync** for background operation
+
+### Nightscout hosting options
+
+- **[Fly.io](https://fly.io)** — Docker-based, free tier available → [setup guide](https://nightscout.github.io/nightscout/fly/)
+- **[Railway](https://railway.app)** — Simple deploy from GitHub
+- **[Heroku](https://heroku.com)** — Classic option (paid plans only now)
+- **Self-hosted** — Raspberry Pi or any server with Docker
+
+---
+
+## Data mapping
+
+| Source | Data | Apple Health |
+|--------|------|-------------|
+| Nightscout | SGV entries | Blood Glucose |
+| Nightscout | Bolus treatments | Insulin Delivery (Bolus) |
+| Nightscout | Temp basal treatments | Insulin Delivery (Basal) |
+| Nightscout | Carb treatments | Dietary Carbohydrates |
+
+---
+
+## Project structure
+
+```
+daatlas-healthsync/Sources/
+├── App/
+│   ├── DaatlasHealthSyncApp.swift   # @main entry, scene setup
+│   └── AppDelegate.swift            # Background task registration & scheduling
+├── Services/
+│   ├── SyncService.swift            # Actor: orchestration + deduplication
+│   ├── NightscoutService.swift      # Actor: Nightscout REST client
+│   └── HealthKitService.swift       # Actor: HealthKit read/write
+├── ViewModels/
+│   └── SyncViewModel.swift          # @MainActor: all published state
+├── Views/
+│   └── ContentView.swift            # Main UI, settings, logs
+└── Models/
+    ├── GlucoseEntry.swift           # SGV with mg/dL ↔ mmol/L conversion
+    ├── NightscoutTreatment.swift    # Insulin (bolus/basal), carbs
+    ├── UserSettings.swift           # Actor-wrapped UserDefaults
+    └── SyncLog.swift                # Sync operation audit trail
 ```
 
-### 3. Configure the App
-
-1. Open the app
-2. Go to **Settings** (gear icon)
-3. Enter your **Nightscout URL** (e.g., `https://your-nightscout.fly.dev`)
-4. Enter your **API Secret**
-5. Tap **Test Connection**
-6. Tap **Request HealthKit Authorization**
-7. Choose what to sync: Glucose, Insulin, Carbs
-
-### 4. Sync
-
-- Tap **Sync Now** for a manual sync
-- Enable **Auto-sync** for automatic background syncs
-
-## Features
-
-- **Selective sync** — choose which data types to sync
-- **Deduplication** — won't write the same data twice
-- **Background sync** — configurable intervals (5 min to 2 hours)
-- **Sync logs** — audit trail of what was synced and when
-- **mg/dL and mmol/L** — both glucose units supported
-
-## What Gets Synced
-
-| Data Type | HealthKit Type |
-|-----------|---------------|
-| Glucose | Blood Glucose |
-| Insulin (Bolus) | Insulin Delivery (Bolus) |
-| Insulin (Basal) | Insulin Delivery (Basal) |
-| Carbs | Dietary Carbohydrates |
-
-## Tech Stack
-
-- **SwiftUI** — declarative UI
-- **HealthKit** — Apple Health integration
-- **Swift Concurrency** — async/await and actors
-- **iOS 16+** — minimum deployment target
-- No third-party dependencies
+---
 
 ## Troubleshooting
 
-**"Connection failed"** — verify Nightscout URL and API secret match exactly, confirm instance is running.
+**Connection failed** — Check your Nightscout URL and API secret. Verify the instance is online.
 
-**"HealthKit authorization denied"** — go to iOS Settings > Privacy & Security > Health > DaAtlas and allow access.
+**HealthKit authorization denied** — Go to iOS Settings → Privacy & Security → Health → DaAtlas → enable write access for each data type.
 
-**Data not appearing in Apple Health** — confirm write permissions were granted for each data type and check Sync Logs.
+**Data not appearing** — Confirm sync completed in Sync Logs. Check that write permissions were granted for that specific data type.
 
-## Disclaimer
+---
 
-For informational purposes only. Always consult your healthcare provider about diabetes management decisions.
+## Great apps in the diabetes space
+
+- **[Gluroo](https://gluroo.com)** — a beautifully designed diabetes management app. If you want a polished all-in-one experience, check it out.
+- **[Stash Diabetes](https://www.stashdiabetes.com)** — great app for managing and tracking diabetes supplies.
+- **[xDrip4iOS](https://xdrip4ios.readthedocs.io)** — open-source CGM reader for iOS. The go-to for DIY CGM setups.
+
+---
 
 ## License
 
-This project is licensed under the **GNU General Public License v3.0** — see the [LICENSE](LICENSE) file for details.
+GNU General Public License v3.0 — see [LICENSE](LICENSE) for details.
 
-In short: you can use, modify, and distribute this code freely, but any distributed modifications must also be open source under GPL v3.
+---
+
+## Disclaimer
+
+daatlas-healthsync is not a medical device. It is a data utility for personal use. Always consult your healthcare provider for diabetes management decisions.
